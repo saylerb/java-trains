@@ -11,17 +11,20 @@ public class GraphBuilder {
     }
 
     public Map<Character, List<Character>> buildUnweighted() {
-        Map<Character, List<Character>> result = new HashMap<Character, List<Character>>();
-
         char[] inputArr = input.toCharArray();
-
         char origin = inputArr[0];
 
-        List<Character> finish = new ArrayList<Character>();
+        List<Character> destination = new ArrayList<Character>() {
+            {
+                add(inputArr[1]);
+            }
+        };
 
-        finish.add(inputArr[1]);
-
-        result.put(origin, finish);
+        Map<Character, List<Character>> result = new HashMap<Character, List<Character>>() {
+            {
+                put(origin, destination);
+            }
+        };
 
         return result;
     }
