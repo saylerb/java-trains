@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Arrays;
+import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 
@@ -37,6 +38,21 @@ public class DistanceCalculatorTest {
         Integer expected = 5;
 
         assertEquals(expected, calc.calculateDistance(route));
+    }
+
+    @Test
+    public void testGetNodePairs() {
+        ArrayList<List<Character>> expectedPairs = new ArrayList<List<Character>>() {
+            {
+                add(Arrays.asList('A', 'B'));
+                add(Arrays.asList('B', 'C'));
+            }
+        };
+
+        DistanceCalculator calc = new DistanceCalculator(null);
+        List<Character> route = Arrays.asList('A', 'B', 'C');
+
+        assertEquals(expectedPairs, calc.getNodePairs(route));
     }
 
     private Map<Character, HashMap<Character, Integer>> createTestGraph() {
