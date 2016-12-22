@@ -11,21 +11,31 @@ public class GraphBuilder {
     }
 
     public Map<Character, List<Character>> buildUnweighted() {
-        char[] inputArr = input.toCharArray();
-        char origin = inputArr[0];
 
-        List<Character> destination = new ArrayList<Character>() {
-            {
-                add(inputArr[1]);
+        String[] pairs = input.split(", ");
+        System.out.println(pairs);
+
+        Map<Character, List<Character>> result = new HashMap<Character, List<Character>>();
+
+        for (String pair : pairs) {
+            System.out.println(pair);
+            char[] charPair = pair.toCharArray();
+
+            char origin = charPair[0];
+            char destination = charPair[1];
+
+            List<Character> adjacentNodes = result.get(origin);
+
+            if (adjacentNodes == null) {
+                adjacentNodes = new ArrayList<Character>();
+                adjacentNodes.add(destination);
+
+                result.put(origin, adjacentNodes);
+
+            } else {
+                result.get(origin).add(destination);
             }
-        };
-
-        Map<Character, List<Character>> result = new HashMap<Character, List<Character>>() {
-            {
-                put(origin, destination);
-            }
-        };
-
+        }
         return result;
     }
 }
