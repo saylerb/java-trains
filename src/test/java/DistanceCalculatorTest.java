@@ -42,22 +42,8 @@ public class DistanceCalculatorTest {
 
     @Test
     public void testGetNodePairs() {
-        ArrayList<List<Character>> expectedPairs = new ArrayList<List<Character>>() {
-            {
-                add(Arrays.asList('A', 'B'));
-                add(Arrays.asList('B', 'C'));
-            }
-        };
-
-        DistanceCalculator calc = new DistanceCalculator(null);
-        List<Character> route = Arrays.asList('A', 'B', 'C');
-
-        assertEquals(expectedPairs, calc.getNodePairs(route));
-    }
-
-    @Test
-    public void testGetNodePairsWithReturnTrip() {
-        ArrayList<List<Character>> expectedPairs = new ArrayList<List<Character>>() {
+        ArrayList<List<Character>> expectedPairs
+            = new ArrayList<List<Character>>() {
             {
                 add(Arrays.asList('A', 'B'));
                 add(Arrays.asList('B', 'C'));
@@ -69,6 +55,26 @@ public class DistanceCalculatorTest {
         List<Character> route = Arrays.asList('A', 'B', 'C', 'A');
 
         assertEquals(expectedPairs, calc.getNodePairs(route));
+    }
+
+    @Test
+    public void calculateTotalRouteDistance() {
+        Map<Character, HashMap<Character, Integer>> testGraph
+            = createTestGraph();
+
+        DistanceCalculator calc = new DistanceCalculator(testGraph);
+
+        List<Character> routeOne = Arrays.asList('A', 'D');
+        List<Character> routeTwo = Arrays.asList('A', 'B', 'C');
+        List<Character> routeThree = Arrays.asList('A', 'D', 'C');
+        List<Character> routeFour = Arrays.asList('A', 'B', 'C', 'D');
+        List<Character> routeFive = Arrays.asList('A', 'E', 'B', 'C', 'D');
+
+        assertEquals((Integer)5, calc.calculateDistance(routeOne));
+        assertEquals((Integer)9, calc.calculateDistance(routeTwo));
+        assertEquals((Integer)13, calc.calculateDistance(routeThree));
+        assertEquals((Integer)17, calc.calculateDistance(routeFour));
+        assertEquals((Integer)22, calc.calculateDistance(routeFive));
     }
 
     private Map<Character, HashMap<Character, Integer>> createTestGraph() {

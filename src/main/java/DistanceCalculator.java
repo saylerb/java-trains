@@ -12,7 +12,16 @@ public class DistanceCalculator {
     }
 
     public Integer calculateDistance(List<Character> route) {
-        return graph.get(route.get(0)).get(route.get(1));
+        Integer sum = 0;
+        ArrayList<List<Character>> pairs = getNodePairs(route);
+
+        for (List<Character> pair: pairs) {
+            char origin = pair.get(0);
+            char destination = pair.get(1);
+
+            sum += graph.get(origin).get(destination);
+        }
+        return sum;
     }
 
     public ArrayList<List<Character>> getNodePairs(List<Character> route) {
@@ -20,8 +29,7 @@ public class DistanceCalculator {
 
         ArrayList<List<Character>> result = new ArrayList<List<Character>>();
 
-        for(int index = 0; index < totalNodes; index++) {
-            System.out.println("Current index is: " + index);
+        for (int index = 0; index < totalNodes; index++) {
             if (index != totalNodes - 1) {
                 result.add(Arrays.asList(route.get(index), route.get(index + 1)));
             }
