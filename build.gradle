@@ -2,6 +2,8 @@ apply plugin: 'java'
 apply plugin: "eclipse"
 apply plugin: "idea"
 
+defaultTasks 'test'
+
 repositories {
   mavenCentral()
 }
