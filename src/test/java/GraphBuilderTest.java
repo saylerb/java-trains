@@ -27,13 +27,16 @@ public class GraphBuilderTest {
         assertEquals(expected, builder.buildUnweighted());
     }
 
+    @Test
     public void buildUnweightedGraphWithMultipleNodes() {
         Map<Character, List<Character>> expected = new HashMap<Character, List<Character>>() {
             {
                 put('A', Arrays.asList('B'));
+                put('B', Arrays.asList('C'));
+                put('C', Arrays.asList('D'));
             }
         };
-        GraphBuilder builder = new GraphBuilder("AB");
+        GraphBuilder builder = new GraphBuilder("AB, BC, CD");
 
         assertEquals(expected, builder.buildUnweighted());
     }
