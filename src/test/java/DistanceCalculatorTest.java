@@ -1,7 +1,10 @@
 import org.junit.Test;
 import org.junit.Ignore;
+
 import java.util.Map;
+import java.util.List;
 import java.util.HashMap;
+import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 
@@ -14,6 +17,26 @@ public class DistanceCalculatorTest {
         DistanceCalculator calc = new DistanceCalculator(testGraph);
 
         assertEquals(testGraph, calc.graph);
+    }
+
+    @Test
+    public void testCalculatesDistanceBetweenNodes() {
+        Map<Character, HashMap<Character, Integer>> testGraph
+            = new HashMap<Character, HashMap<Character, Integer>>() {
+                {
+                    put('A', new HashMap<Character, Integer>() {
+                        {
+                            put('B', 5);
+                        }
+                    });
+                }
+            };
+
+        DistanceCalculator calc = new DistanceCalculator(testGraph);
+        List<Character> route = Arrays.asList('A', 'B');
+        Integer expected = 5;
+
+        assertEquals(expected, calc.calculateDistance(route));
     }
 
     private Map<Character, HashMap<Character, Integer>> createTestGraph() {
