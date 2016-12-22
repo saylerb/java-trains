@@ -55,6 +55,22 @@ public class DistanceCalculatorTest {
         assertEquals(expectedPairs, calc.getNodePairs(route));
     }
 
+    @Test
+    public void testGetNodePairsWithReturnTrip() {
+        ArrayList<List<Character>> expectedPairs = new ArrayList<List<Character>>() {
+            {
+                add(Arrays.asList('A', 'B'));
+                add(Arrays.asList('B', 'C'));
+                add(Arrays.asList('C', 'A'));
+            }
+        };
+
+        DistanceCalculator calc = new DistanceCalculator(null);
+        List<Character> route = Arrays.asList('A', 'B', 'C', 'A');
+
+        assertEquals(expectedPairs, calc.getNodePairs(route));
+    }
+
     private Map<Character, HashMap<Character, Integer>> createTestGraph() {
         Map<Character, HashMap<Character, Integer>> graph
             = new HashMap<Character, HashMap<Character, Integer>>() {
