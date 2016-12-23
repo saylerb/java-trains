@@ -113,6 +113,19 @@ public class DistanceCalculatorTest {
         assertFalse(calc.routeExists(Arrays.asList('A', 'B', 'C', 'A')));
     }
 
+    @Test
+    public void testItCanDetectCircularRoutes() {
+        Map<Character, HashMap<Character, Integer>> testGraph
+            = createTestGraph();
+        DistanceCalculator calc = new DistanceCalculator(testGraph);
+
+        assertTrue(calc.routeExists(Arrays.asList('D', 'E', 'B', 'C', 'D')));
+        assertTrue(calc.routeExists(Arrays.asList('C', 'D', 'C')));
+
+        assertFalse(calc.routeExists(Arrays.asList('C', 'C')));
+        assertFalse(calc.routeExists(Arrays.asList('D', 'D')));
+    }
+
     private Map<Character, HashMap<Character, Integer>> createTestGraph() {
         Map<Character, HashMap<Character, Integer>> graph
             = new HashMap<Character, HashMap<Character, Integer>>() {
