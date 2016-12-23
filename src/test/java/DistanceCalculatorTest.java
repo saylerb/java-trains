@@ -19,7 +19,7 @@ public class DistanceCalculatorTest {
 
         DistanceCalculator calc = new DistanceCalculator(testGraph);
 
-        assertEquals(testGraph, calc.graph);
+        assertEquals(testGraph, calc.getGraph());
     }
 
     @Test

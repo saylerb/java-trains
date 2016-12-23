@@ -4,10 +4,14 @@ import java.util.Map;
 import java.util.HashMap;
 
 public class GraphBuilder {
-    String input;
+    private String input;
 
-    public GraphBuilder(String inputGraph) {
-        input = inputGraph;
+    public GraphBuilder(String input) {
+        this.input = input;
+    }
+
+    public String getInput() {
+        return input;
     }
 
     public Map<Character, List<Character>> buildUnweighted() {

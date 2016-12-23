@@ -10,10 +10,10 @@ import static org.junit.Assert.assertEquals;
 
 public class GraphBuilderTest {
     @Test
-    public void getGraph() {
+    public void getGraphInput() {
         GraphBuilder builder = new GraphBuilder("AB");
 
-        assertEquals("AB", builder.input);
+        assertEquals("AB", builder.getInput());
     }
 
     @Test
