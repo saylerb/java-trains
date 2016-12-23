@@ -126,6 +126,23 @@ public class DistanceCalculatorTest {
     }
 
     @Test
+    public void testItCanCalculateDistanceOfCircularRoute() {
+        Map<Character, HashMap<Character, Integer>> testGraph
+            = createTestGraph();
+        DistanceCalculator calc = new DistanceCalculator(testGraph);
+
+        List<Character> routeOne = Arrays.asList('C', 'D', 'C');
+        List<Character> routeTwo = Arrays.asList('C', 'D', 'C', 'D');
+        List<Character> routeThree = Arrays.asList('B', 'C', 'E', 'B');
+        List<Character> routeFour = Arrays.asList('C', 'D', 'E', 'B', 'C');
+
+        assertEquals("16", calc.calculateDistance(routeOne));
+        assertEquals("24", calc.calculateDistance(routeTwo));
+        assertEquals("9", calc.calculateDistance(routeThree));
+        assertEquals("21", calc.calculateDistance(routeFour));
+    }
+
+    @Test
     public void testItCanDetectNoRoute() {
         Map<Character, HashMap<Character, Integer>> testGraph
             = createTestGraph();
