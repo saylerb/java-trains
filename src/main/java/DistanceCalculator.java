@@ -5,10 +5,14 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 public class DistanceCalculator {
-    Map<Character, HashMap<Character, Integer>> graph;
+    private Map<Character, HashMap<Character, Integer>> graph;
 
-    public DistanceCalculator(Map<Character, HashMap<Character, Integer>> inputGraph) {
-        graph = inputGraph;
+    public DistanceCalculator(Map<Character, HashMap<Character, Integer>> graph) {
+        this.graph = graph;
+    }
+
+    public Map<Character, HashMap<Character, Integer>> getGraph() {
+        return graph;
     }
 
     public String calculateDistance(List<Character> route) {
