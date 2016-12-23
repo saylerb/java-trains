@@ -8,6 +8,8 @@ import java.util.Arrays;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 public class DistanceCalculatorTest {
     @Test
@@ -75,6 +77,24 @@ public class DistanceCalculatorTest {
         assertEquals((Integer)13, calc.calculateDistance(routeThree));
         assertEquals((Integer)17, calc.calculateDistance(routeFour));
         assertEquals((Integer)22, calc.calculateDistance(routeFive));
+    }
+
+    @Test
+    public void testIfEdgeExists() {
+        Map<Character, HashMap<Character, Integer>> testGraph
+            = createTestGraph();
+
+        DistanceCalculator calc = new DistanceCalculator(testGraph);
+
+        assertTrue(calc.edgeExists(Arrays.asList('A', 'B')));
+        assertTrue(calc.edgeExists(Arrays.asList('B', 'C')));
+        assertTrue(calc.edgeExists(Arrays.asList('C', 'D')));
+        assertTrue(calc.edgeExists(Arrays.asList('D', 'E')));
+
+        assertFalse(calc.edgeExists(Arrays.asList('A', 'A')));
+        assertFalse(calc.edgeExists(Arrays.asList('C', 'B')));
+        assertFalse(calc.edgeExists(Arrays.asList('D', 'B')));
+        assertFalse(calc.edgeExists(Arrays.asList('Z', 'X')));
     }
 
     private Map<Character, HashMap<Character, Integer>> createTestGraph() {

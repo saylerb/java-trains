@@ -37,4 +37,19 @@ public class DistanceCalculator {
 
         return result;
     }
+
+    public boolean edgeExists(List<Character> edge) {
+        char start = edge.get(0);
+        char end = edge.get(1);
+
+        HashMap<Character, Integer> allEdges = graph.get(start);
+
+        if (allEdges == null) {
+            return false;
+        } else if (allEdges.get(end) == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
