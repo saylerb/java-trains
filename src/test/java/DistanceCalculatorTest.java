@@ -97,6 +97,22 @@ public class DistanceCalculatorTest {
         assertFalse(calc.edgeExists(Arrays.asList('Z', 'X')));
     }
 
+    @Test
+    public void testIfRouteExists() {
+        Map<Character, HashMap<Character, Integer>> testGraph
+            = createTestGraph();
+
+        DistanceCalculator calc = new DistanceCalculator(testGraph);
+
+        assertTrue(calc.routeExists(Arrays.asList('A', 'B')));
+        assertTrue(calc.routeExists(Arrays.asList('A', 'B', 'C')));
+        assertTrue(calc.routeExists(Arrays.asList('A', 'B', 'C', 'D')));
+
+        assertFalse(calc.routeExists(Arrays.asList('A', 'C')));
+        assertFalse(calc.routeExists(Arrays.asList('A', 'B', 'D')));
+        assertFalse(calc.routeExists(Arrays.asList('A', 'B', 'C', 'A')));
+    }
+
     private Map<Character, HashMap<Character, Integer>> createTestGraph() {
         Map<Character, HashMap<Character, Integer>> graph
             = new HashMap<Character, HashMap<Character, Integer>>() {

@@ -52,4 +52,10 @@ public class DistanceCalculator {
             return true;
         }
     }
+
+    public boolean routeExists(List<Character> route) {
+        return getNodePairs(route)
+            .stream()
+            .allMatch(edge -> edgeExists(edge));
+    }
 }
