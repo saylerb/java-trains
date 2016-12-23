@@ -37,9 +37,8 @@ public class DistanceCalculatorTest {
 
         DistanceCalculator calc = new DistanceCalculator(testGraph);
         List<Character> route = Arrays.asList('A', 'B');
-        Integer expected = 5;
 
-        assertEquals(expected, calc.calculateDistance(route));
+        assertEquals("5", calc.calculateDistance(route));
     }
 
     @Test
@@ -72,11 +71,11 @@ public class DistanceCalculatorTest {
         List<Character> routeFour = Arrays.asList('A', 'B', 'C', 'D');
         List<Character> routeFive = Arrays.asList('A', 'E', 'B', 'C', 'D');
 
-        assertEquals((Integer)5, calc.calculateDistance(routeOne));
-        assertEquals((Integer)9, calc.calculateDistance(routeTwo));
-        assertEquals((Integer)13, calc.calculateDistance(routeThree));
-        assertEquals((Integer)17, calc.calculateDistance(routeFour));
-        assertEquals((Integer)22, calc.calculateDistance(routeFive));
+        assertEquals("5", calc.calculateDistance(routeOne));
+        assertEquals("9", calc.calculateDistance(routeTwo));
+        assertEquals("13", calc.calculateDistance(routeThree));
+        assertEquals("17", calc.calculateDistance(routeFour));
+        assertEquals("22", calc.calculateDistance(routeFive));
     }
 
     @Test
@@ -124,6 +123,19 @@ public class DistanceCalculatorTest {
 
         assertFalse(calc.routeExists(Arrays.asList('C', 'C')));
         assertFalse(calc.routeExists(Arrays.asList('D', 'D')));
+    }
+
+    @Test
+    public void testItCanDetectNoRoute() {
+        Map<Character, HashMap<Character, Integer>> testGraph
+            = createTestGraph();
+        DistanceCalculator calc = new DistanceCalculator(testGraph);
+
+        List<Character> validRoute = Arrays.asList('A', 'B', 'C', 'E');
+        List<Character> invalidRoute = Arrays.asList('A', 'B', 'C', 'A');
+
+        assertEquals("11", calc.calculateDistance(validRoute));
+        assertEquals("NO SUCH ROUTE", calc.calculateDistance(invalidRoute));
     }
 
     private Map<Character, HashMap<Character, Integer>> createTestGraph() {

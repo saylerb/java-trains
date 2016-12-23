@@ -11,17 +11,21 @@ public class DistanceCalculator {
         graph = inputGraph;
     }
 
-    public Integer calculateDistance(List<Character> route) {
-        Integer sum = 0;
+    public String calculateDistance(List<Character> route) {
+        Integer totalDistance = 0;
         ArrayList<List<Character>> pairs = getNodePairs(route);
 
-        for (List<Character> pair: pairs) {
-            char origin = pair.get(0);
-            char destination = pair.get(1);
+        if (routeExists(route)) {
+            for (List<Character> pair: pairs) {
+                char origin = pair.get(0);
+                char destination = pair.get(1);
 
-            sum += graph.get(origin).get(destination);
+                totalDistance += graph.get(origin).get(destination);
+            }
+            return String.valueOf(totalDistance);
+        } else {
+            return "NO SUCH ROUTE";
         }
-        return sum;
     }
 
     public ArrayList<List<Character>> getNodePairs(List<Character> route) {
@@ -34,7 +38,6 @@ public class DistanceCalculator {
                 result.add(Arrays.asList(route.get(index), route.get(index + 1)));
             }
         }
-
         return result;
     }
 
