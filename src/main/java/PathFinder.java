@@ -26,7 +26,7 @@ public class PathFinder {
             Character end,
             Integer max) {
 
-        ArrayList<List<Character>> foundPaths = new ArrayList<List<Character>>();
+        ArrayList<List<Character>> foundPaths = new ArrayList<>();
         ArrayList<Character> visitedNodes = new ArrayList<Character>() {
             {
                 add(start);
@@ -38,6 +38,54 @@ public class PathFinder {
         this.max = max;
 
         return depthFirstSearchMaxStops(visitedNodes, foundPaths, start);
+    }
+
+    public ArrayList<List<Character>> findPathsWithExactStops(
+            Character start,
+            Character end,
+            Integer max) {
+
+        ArrayList<List<Character>> foundPaths = new ArrayList<>();
+
+        ArrayList<Character> visitedNodes = new ArrayList<Character>() {
+            {
+                add(start);
+            }
+        };
+
+        this.start = start;
+        this.end = end;
+        this.max = max;
+
+        return depthFirstSearchExactStops(visitedNodes, foundPaths, start);
+    }
+
+    private ArrayList<List<Character>> depthFirstSearchExactStops(
+            List<Character> visitedNodes,
+            ArrayList<List<Character>> foundPaths,
+            Character currentNode) {
+
+        if (visitedNodes.size() > max + 1) {
+            return foundPaths;
+        } else if (currentNode == end && visitedNodes.size() == max + 1) {
+            foundPaths.add(visitedNodes);
+        } else {
+            List<Character> adjacentNodes = findAdjacentNodes(currentNode);
+
+            for (Character adjacentNode : adjacentNodes) {
+                List<Character> newVisitedNodes = new ArrayList<Character>() {
+                    {
+                        addAll(visitedNodes);
+                        add(adjacentNode);
+                    }
+                };
+                depthFirstSearchExactStops(
+                        newVisitedNodes,
+                        foundPaths,
+                        adjacentNode);
+            }
+        }
+        return foundPaths;
     }
 
     private ArrayList<List<Character>> depthFirstSearchMaxStops(
@@ -59,7 +107,10 @@ public class PathFinder {
                         add(adjacentNode);
                     }
                 };
-                depthFirstSearchMaxStops(newVisitedNodes, foundPaths, adjacentNode);
+                depthFirstSearchMaxStops(
+                        newVisitedNodes,
+                        foundPaths,
+                        adjacentNode);
             }
         }
         return foundPaths;

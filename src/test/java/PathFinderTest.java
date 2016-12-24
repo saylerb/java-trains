@@ -33,7 +33,7 @@ public class PathFinderTest {
     }
 
     @Test
-    public void testFindingPathFromCtoCWithMaxStops() {
+    public void testFindingPathsFromCtoCWithMaxStops() {
         Map<Character, HashMap<Character, Integer>> exampleGraph
             = ExampleGraph.createGraph();
 
@@ -52,5 +52,28 @@ public class PathFinderTest {
 
         assertEquals(expected, result);
         assertEquals((int)2, result.size());
+    }
+
+    @Test
+    public void testFindingPathsFromAtoCWithExactStops() {
+        Map<Character, HashMap<Character, Integer>> exampleGraph
+            = ExampleGraph.createGraph();
+
+        PathFinder finder = new PathFinder(exampleGraph);
+
+        ArrayList<List<Character>> expected
+            = new ArrayList<List<Character>>() {
+            {
+                add(Arrays.asList('A', 'B', 'C', 'D', 'C'));
+                add(Arrays.asList('A', 'D', 'C', 'D', 'C'));
+                add(Arrays.asList('A', 'D', 'E', 'B', 'C'));
+            }
+        };
+
+        ArrayList<List<Character>> result
+            = finder.findPathsWithExactStops('A', 'C', 4);
+
+        assertEquals(expected, result);
+        assertEquals((int)3, result.size());
     }
 }
