@@ -33,7 +33,7 @@ public class PathFinderTest {
     }
 
     @Test
-    public void testFindingPathFromCtoC() {
+    public void testFindingPathFromCtoCWithMaxStops() {
         Map<Character, HashMap<Character, Integer>> exampleGraph
             = ExampleGraph.createGraph();
 
@@ -47,6 +47,10 @@ public class PathFinderTest {
             }
         };
 
-        assertEquals(expected, finder.findPathWithMax('C', 'C', 3));
+        ArrayList<List<Character>> result
+            = finder.findPathsWithMaxStops('C', 'C', 3);
+
+        assertEquals(expected, result);
+        assertEquals((int)2, result.size());
     }
 }
