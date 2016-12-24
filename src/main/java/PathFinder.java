@@ -60,6 +60,26 @@ public class PathFinder {
         return depthFirstSearchExactStops(visitedNodes, foundPaths, start);
     }
 
+    public ArrayList<List<Character>> findPathsUpToMaxDistance(
+            Character start,
+            Character end,
+            Integer max) {
+
+        ArrayList<List<Character>> foundPaths = new ArrayList<>();
+
+        ArrayList<Character> visitedNodes = new ArrayList<Character>() {
+            {
+                add(start);
+            }
+        };
+
+        this.start = start;
+        this.end = end;
+        this.max = max;
+
+        return depthFirstSearchUpToDistance(visitedNodes, foundPaths, start);
+    }
+
     private ArrayList<List<Character>> depthFirstSearchExactStops(
             List<Character> visitedNodes,
             ArrayList<List<Character>> foundPaths,
@@ -112,6 +132,37 @@ public class PathFinder {
                         foundPaths,
                         adjacentNode);
             }
+        }
+        return foundPaths;
+    }
+
+    private ArrayList<List<Character>> depthFirstSearchUpToDistance(
+            List<Character> visitedNodes,
+            ArrayList<List<Character>> foundPaths,
+            Character currentNode) {
+
+        String currentDistance
+            = new DistanceCalculator(graph).calculateDistance(visitedNodes);
+
+        if (Integer.parseInt(currentDistance) >= max) {
+            return foundPaths;
+        } else if (currentNode == end && visitedNodes.size() > 1) {
+            foundPaths.add(visitedNodes);
+        }
+
+        List<Character> adjacentNodes = findAdjacentNodes(currentNode);
+
+        for (Character adjacentNode : adjacentNodes) {
+            List<Character> newVisitedNodes = new ArrayList<Character>() {
+                {
+                    addAll(visitedNodes);
+                    add(adjacentNode);
+                }
+            };
+            depthFirstSearchUpToDistance(
+                    newVisitedNodes,
+                    foundPaths,
+                    adjacentNode);
         }
         return foundPaths;
     }
