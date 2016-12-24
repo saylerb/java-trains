@@ -18,4 +18,18 @@ public class ShortestPathFinder {
         return new ArrayList<Character>(graph.get(node).keySet());
     }
 
+    public HashMap<Character, Integer> generateInitialCosts(char start, char end) {
+        List<Character> nodes = new ArrayList<Character>(graph.keySet());
+
+        HashMap<Character, Integer> costs = new HashMap<Character, Integer>();
+
+        for (char node : nodes) {
+            if (getAdjacentNodes(start).contains(node)) {
+                costs.put(node, graph.get(start).get(node));
+            } else {
+                costs.put(node, Integer.MAX_VALUE);
+            }
+        }
+        return costs;
+    }
 }
