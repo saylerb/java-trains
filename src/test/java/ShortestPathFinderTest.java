@@ -30,7 +30,7 @@ public class ShortestPathFinderTest {
     }
 
     @Test
-    public void testGeneratingInitialCosts() {
+    public void testGeneratingCosts() {
         Map<Character, HashMap<Character, Integer>> exampleGraph
             = ExampleGraph.createGraph();
 
@@ -60,7 +60,50 @@ public class ShortestPathFinderTest {
             }
             };
 
-        assertEquals(expectedOne, finder.generateInitialCosts('A', 'C'));
-        assertEquals(expectedTwo, finder.generateInitialCosts('C', 'B'));
+        assertEquals(expectedOne, finder.generateCosts('A', 'C'));
+        assertEquals(expectedTwo, finder.generateCosts('C', 'B'));
     }
+
+    @Test
+    public void testGeneratingPredecessors() {
+        Map<Character, HashMap<Character, Integer>> exampleGraph
+            = ExampleGraph.createGraph();
+
+        ShortestPathFinder finder = new ShortestPathFinder(exampleGraph);
+
+        HashMap<Character, Character> expectedOne
+            = new HashMap<Character, Character>() {
+                {
+                    put('B', 'A');
+                    put('C', null);
+                    put('D', 'A');
+                    put('E', 'A');
+                }
+            };
+
+        HashMap<Character, Character> expectedTwo
+            = new HashMap<Character, Character>() {
+                {
+                    put('A', null);
+                    put('B', null);
+                    put('D', 'C');
+                    put('E', 'C');
+                }
+            };
+
+        assertEquals(expectedOne, finder.generatePredecessors('A', 'B'));
+        assertEquals(expectedTwo, finder.generatePredecessors('C', 'B'));
+    }
+
+    @Test
+    public void testItCanFindTheLowestCostNode() {
+
+        Map<Character, HashMap<Character, Integer>> exampleGraph
+            = ExampleGraph.createGraph();
+
+        ShortestPathFinder finder = new ShortestPathFinder(exampleGraph);
+
+        assertEquals((Character)'B', finder.getLowestCostNode('A', 'B'));
+    }
+
 }
