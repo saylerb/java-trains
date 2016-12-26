@@ -97,13 +97,25 @@ public class ShortestPathFinderTest {
 
     @Test
     public void testItCanFindTheLowestCostNode() {
-
-        Map<Character, HashMap<Character, Integer>> exampleGraph
-            = ExampleGraph.createGraph();
+        Map<Character, HashMap<Character, Integer>> exampleGraph = ExampleGraph.createGraph();
 
         ShortestPathFinder finder = new ShortestPathFinder(exampleGraph);
 
-        assertEquals((Character)'B', finder.getLowestCostNode('A', 'B'));
+        assertEquals((Character)'B', finder.getLowestCostNode('A', 'B', null, null));
     }
+
+    @Test
+    public void testItCanFindTheShortestPath() {
+        Map<Character, HashMap<Character, Integer>> exampleGraph = ExampleGraph.createGraph();
+
+        ShortestPathFinder finder = new ShortestPathFinder(exampleGraph);
+
+        assertEquals((Integer)7, finder.findShortestPathDistance('A', 'E'));
+        assertEquals((Integer)9, finder.findShortestPathDistance('A', 'C'));
+        assertEquals((Integer)9, finder.findShortestPathDistance('B', 'B'));
+        assertEquals((Integer)8, finder.findShortestPathDistance('C', 'D'));
+        assertEquals((Integer)9, finder.findShortestPathDistance('C', 'C'));
+    }
+
 }
 
