@@ -6,8 +6,7 @@ import java.util.Map;
 public class ShortestPathFinder {
     private Map<Character, HashMap<Character, Integer>> graph;
 
-    public ShortestPathFinder(
-            Map<Character, HashMap<Character, Integer>> graph) {
+    public ShortestPathFinder(Map<Character, HashMap<Character, Integer>> graph) {
         this.graph = graph;
     }
 
@@ -49,13 +48,22 @@ public class ShortestPathFinder {
         return parents;
     }
 
-    public Character getLowestCostNode(char start, char end) {
+    public Character getLowestCostNode(
+            char start,
+            char end,
+            HashMap<Character, Integer> costs,
+            List<Character> processed) {
+
         Integer lowestCost = Integer.MAX_VALUE;
         Character lowestCostNode = null;
 
-        HashMap<Character, Integer> costs = generateCosts(start, end);
+        if (costs == null) {
+            costs = generateCosts(start, end);
+        }
 
-        List<Character> processed = new ArrayList<Character>();
+        if (processed == null) {
+            processed = new ArrayList<Character>();
+        }
 
         for (char node : costs.keySet()) {
 
@@ -69,4 +77,29 @@ public class ShortestPathFinder {
         return lowestCostNode;
     }
 
+    public Integer findShortestPathDistance(char start, char end) {
+        HashMap<Character, Integer> costs = generateCosts(start, end);
+        HashMap<Character, Character> predecessors = generatePredecessors(start, end);
+
+        Character currentNode = getLowestCostNode(start, end, null, null);
+        List<Character> visited = new ArrayList<Character>();
+
+        while (currentNode != null) {
+            System.out.println(currentNode);
+            Integer cost = costs.get(currentNode);
+            HashMap<Character, Integer> adjacentNodes = graph.get(currentNode);
+
+            for (char adjacentNode : adjacentNodes.keySet()) {
+                Integer newCost = cost + adjacentNodes.get(adjacentNode);
+
+                if (newCost < costs.get(adjacentNode)) {
+                    costs.put(adjacentNode, newCost);
+                    predecessors.put(adjacentNode, currentNode);
+                }
+            }
+            visited.add(currentNode);
+            currentNode = getLowestCostNode(start, end, costs, visited);
+        }
+        return costs.get(end);
+    }
 }
