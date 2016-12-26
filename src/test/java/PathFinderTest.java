@@ -1,14 +1,14 @@
-import org.junit.Test;
-import org.junit.Ignore;
-
-import java.util.Map;
-import java.util.List;
-import java.util.HashMap;
-import java.util.Arrays;
-import java.util.ArrayList;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.junit.Test;
+
 
 public class PathFinderTest {
     @Test
@@ -42,11 +42,11 @@ public class PathFinderTest {
 
         ArrayList<List<Character>> expected
             = new ArrayList<List<Character>>() {
-            {
-                add(Arrays.asList('C', 'D', 'C'));
-                add(Arrays.asList('C', 'E', 'B', 'C'));
-            }
-        };
+                {
+                    add(Arrays.asList('C', 'D', 'C'));
+                    add(Arrays.asList('C', 'E', 'B', 'C'));
+                }
+            };
 
         ArrayList<List<Character>> result
             = finder.findPathsWithMaxStops('C', 'C', 3);
@@ -64,12 +64,12 @@ public class PathFinderTest {
 
         ArrayList<List<Character>> expected
             = new ArrayList<List<Character>>() {
-            {
-                add(Arrays.asList('A', 'B', 'C', 'D', 'C'));
-                add(Arrays.asList('A', 'D', 'C', 'D', 'C'));
-                add(Arrays.asList('A', 'D', 'E', 'B', 'C'));
-            }
-        };
+                {
+                    add(Arrays.asList('A', 'B', 'C', 'D', 'C'));
+                    add(Arrays.asList('A', 'D', 'C', 'D', 'C'));
+                    add(Arrays.asList('A', 'D', 'E', 'B', 'C'));
+                }
+            };
 
         ArrayList<List<Character>> result
             = finder.findPathsWithExactStops('A', 'C', 4);

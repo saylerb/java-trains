@@ -1,7 +1,7 @@
-import java.util.List;
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ShortestPathFinder {
     private Map<Character, HashMap<Character, Integer>> graph;
@@ -34,9 +34,7 @@ public class ShortestPathFinder {
         return costs;
     }
 
-    public HashMap<Character, Character> generatePredecessors(
-            char start,
-            char end) {
+    public HashMap<Character, Character> generatePredecessors(char start,char end) {
         List<Character> nodes = new ArrayList<Character>(graph.keySet());
 
         HashMap<Character, Character> parents = new HashMap<>();
@@ -70,6 +68,5 @@ public class ShortestPathFinder {
         }
         return lowestCostNode;
     }
-
 
 }

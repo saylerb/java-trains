@@ -1,11 +1,17 @@
 apply plugin: 'java'
 apply plugin: "eclipse"
 apply plugin: "idea"
+apply plugin: 'checkstyle'
 
-defaultTasks 'test'
+defaultTasks = ['check', 'test']
 
 repositories {
   mavenCentral()
+}
+
+checkstyle {
+    configFile = file("${project.rootDir}/config/checkstyle/checkstyle.xml")
+    toolVersion = '7.3'
 }
 
 dependencies {
