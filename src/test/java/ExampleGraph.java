@@ -1,5 +1,5 @@
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
 public class ExampleGraph {
     public static Map<Character, HashMap<Character, Integer>> createGraph() {

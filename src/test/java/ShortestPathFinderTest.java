@@ -1,10 +1,10 @@
-import org.junit.Test;
-
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Arrays;
-
 import static org.junit.Assert.assertEquals;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.junit.Test;
 
 public class ShortestPathFinderTest {
     @Test
@@ -40,24 +40,24 @@ public class ShortestPathFinderTest {
 
         HashMap<Character, Integer> expectedOne
             = new HashMap<Character, Integer>() {
-            {
-                put('A', infinity);
-                put('B', 5);
-                put('C', infinity);
-                put('D', 5);
-                put('E', 7);
-            }
+                {
+                    put('A', infinity);
+                    put('B', 5);
+                    put('C', infinity);
+                    put('D', 5);
+                    put('E', 7);
+                }
             };
 
         HashMap<Character, Integer> expectedTwo
             = new HashMap<Character, Integer>() {
-            {
-                put('A', infinity);
-                put('B', infinity);
-                put('C', infinity);
-                put('D', 8);
-                put('E', 2);
-            }
+                {
+                    put('A', infinity);
+                    put('B', infinity);
+                    put('C', infinity);
+                    put('D', 8);
+                    put('E', 2);
+                }
             };
 
         assertEquals(expectedOne, finder.generateCosts('A', 'C'));
@@ -105,5 +105,5 @@ public class ShortestPathFinderTest {
 
         assertEquals((Character)'B', finder.getLowestCostNode('A', 'B'));
     }
-
 }
+

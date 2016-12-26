@@ -1,16 +1,15 @@
-import org.junit.Test;
-import org.junit.Ignore;
-
-import java.util.Map;
-import java.util.List;
-import java.util.HashMap;
-import java.util.Arrays;
-import java.util.ArrayList;
-
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.junit.Test;
 
 public class DistanceCalculatorTest {
     @Test
@@ -47,12 +46,12 @@ public class DistanceCalculatorTest {
     public void testGetNodePairs() {
         ArrayList<List<Character>> expectedPairs
             = new ArrayList<List<Character>>() {
-            {
-                add(Arrays.asList('A', 'B'));
-                add(Arrays.asList('B', 'C'));
-                add(Arrays.asList('C', 'A'));
-            }
-        };
+                {
+                    add(Arrays.asList('A', 'B'));
+                    add(Arrays.asList('B', 'C'));
+                    add(Arrays.asList('C', 'A'));
+                }
+            };
 
         DistanceCalculator calc = new DistanceCalculator(null);
         List<Character> route = Arrays.asList('A', 'B', 'C', 'A');
