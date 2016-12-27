@@ -85,7 +85,6 @@ public class ShortestPathFinder {
         List<Character> visited = new ArrayList<Character>();
 
         while (currentNode != null) {
-            System.out.println(currentNode);
             Integer cost = costs.get(currentNode);
             HashMap<Character, Integer> adjacentNodes = graph.get(currentNode);
 
