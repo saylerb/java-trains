@@ -10,9 +10,9 @@ public class FileWriterTest {
     public void testCanWriteToFile() {
         List<String> lines = Arrays.asList("Hello", "World");
 
-        FileWriter.write(lines, "output.txt");
+        FileWriter.write(lines, "src/test/java/test.txt");
 
-        assertEquals(lines, FileReader.readToArray("output.txt"));
+        assertEquals(lines, FileReader.readToArray("src/test/java/test.txt"));
     }
 
 }

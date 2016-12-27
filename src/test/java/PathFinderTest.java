@@ -7,27 +7,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.Before;
 import org.junit.Test;
 
-
 public class PathFinderTest {
-    @Test
-    public void testPathFinderHasGraph() {
-        Map<Character, HashMap<Character, Integer>> exampleGraph
-            = ExampleGraph.createGraph();
+    private Map<Character, HashMap<Character, Integer>> exampleGraph;
+    private PathFinder finder;
 
-        PathFinder finder = new PathFinder(exampleGraph);
-
-        assertEquals(exampleGraph, finder.getGraph());
+    @Before
+    public void createGraph() {
+        exampleGraph = ExampleGraph.createGraph();
+        finder = new PathFinder(exampleGraph);
     }
 
     @Test
     public void testCanFindAdjacentNodes() {
-        Map<Character, HashMap<Character, Integer>> exampleGraph
-            = ExampleGraph.createGraph();
-
-        PathFinder finder = new PathFinder(exampleGraph);
-
         List<Character> expected = Arrays.asList('B', 'D', 'E');
 
         assertEquals(expected, finder.findAdjacentNodes('A'));
@@ -35,11 +29,6 @@ public class PathFinderTest {
 
     @Test
     public void testFindingPathsFromCtoCWithMaxStops() {
-        Map<Character, HashMap<Character, Integer>> exampleGraph
-            = ExampleGraph.createGraph();
-
-        PathFinder finder = new PathFinder(exampleGraph);
-
         ArrayList<List<Character>> expected
             = new ArrayList<List<Character>>() {
                 {
@@ -57,11 +46,6 @@ public class PathFinderTest {
 
     @Test
     public void testFindingPathsFromAtoCWithExactStops() {
-        Map<Character, HashMap<Character, Integer>> exampleGraph
-            = ExampleGraph.createGraph();
-
-        PathFinder finder = new PathFinder(exampleGraph);
-
         ArrayList<List<Character>> expected
             = new ArrayList<List<Character>>() {
                 {
@@ -80,11 +64,6 @@ public class PathFinderTest {
 
     @Test
     public void testFindingPathsWithinACertainDistance() {
-        Map<Character, HashMap<Character, Integer>> exampleGraph
-            = ExampleGraph.createGraph();
-
-        PathFinder finder = new PathFinder(exampleGraph);
-
         ArrayList<List<Character>> expectedPaths
             = new ArrayList<List<Character>>() {
                 {
@@ -94,8 +73,7 @@ public class PathFinderTest {
                     add(Arrays.asList('C', 'D', 'C', 'E', 'B', 'C'));
                     add(Arrays.asList('C', 'D', 'E', 'B', 'C'));
                     add(Arrays.asList('C', 'E', 'B', 'C', 'E', 'B', 'C'));
-                    add(Arrays.asList('C', 'E', 'B', 'C', 'E', 'B', 'C',
-                                'E', 'B', 'C'));
+                    add(Arrays.asList('C', 'E', 'B', 'C', 'E', 'B', 'C', 'E', 'B', 'C'));
                 }
             };
 

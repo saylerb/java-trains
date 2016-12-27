@@ -9,18 +9,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class DistanceCalculatorTest {
-    @Test
-    public void testCalculatorHasGraph() {
-        Map<Character, HashMap<Character, Integer>> exampleGraph
-            = ExampleGraph.createGraph();
+    private Map<Character, HashMap<Character, Integer>> exampleGraph;
+    private DistanceCalculator calc;
 
-        DistanceCalculator calc = new DistanceCalculator(exampleGraph);
-
-        assertNotNull(exampleGraph);
-        assertEquals(exampleGraph, calc.getGraph());
+    @Before
+    public void createGraph() {
+        exampleGraph = ExampleGraph.createGraph();
+        calc = new DistanceCalculator(exampleGraph);
     }
 
     @Test
@@ -35,8 +34,6 @@ public class DistanceCalculatorTest {
                     });
                 }
             };
-
-        DistanceCalculator calc = new DistanceCalculator(testGraph);
         List<Character> route = Arrays.asList('A', 'B');
 
         assertEquals("5", calc.calculateDistance(route));
@@ -61,12 +58,6 @@ public class DistanceCalculatorTest {
 
     @Test
     public void calculateTotalRouteDistance() {
-        Map<Character, HashMap<Character, Integer>> exampleGraph
-            = ExampleGraph.createGraph();
-
-
-        DistanceCalculator calc = new DistanceCalculator(exampleGraph);
-
         List<Character> routeOne = Arrays.asList('A', 'D');
         List<Character> routeTwo = Arrays.asList('A', 'B', 'C');
         List<Character> routeThree = Arrays.asList('A', 'D', 'C');
@@ -82,11 +73,6 @@ public class DistanceCalculatorTest {
 
     @Test
     public void testIfEdgeExists() {
-        Map<Character, HashMap<Character, Integer>> exampleGraph
-            = ExampleGraph.createGraph();
-
-        DistanceCalculator calc = new DistanceCalculator(exampleGraph);
-
         assertTrue(calc.edgeExists(Arrays.asList('A', 'B')));
         assertTrue(calc.edgeExists(Arrays.asList('B', 'C')));
         assertTrue(calc.edgeExists(Arrays.asList('C', 'D')));
@@ -100,11 +86,6 @@ public class DistanceCalculatorTest {
 
     @Test
     public void testIfRouteExists() {
-        Map<Character, HashMap<Character, Integer>> exampleGraph
-            = ExampleGraph.createGraph();
-
-        DistanceCalculator calc = new DistanceCalculator(exampleGraph);
-
         assertTrue(calc.routeExists(Arrays.asList('A', 'B')));
         assertTrue(calc.routeExists(Arrays.asList('A', 'B', 'C')));
         assertTrue(calc.routeExists(Arrays.asList('A', 'B', 'C', 'D')));
@@ -116,11 +97,6 @@ public class DistanceCalculatorTest {
 
     @Test
     public void testItCanDetectCircularRoutes() {
-        Map<Character, HashMap<Character, Integer>> exampleGraph
-            = ExampleGraph.createGraph();
-
-        DistanceCalculator calc = new DistanceCalculator(exampleGraph);
-
         assertTrue(calc.routeExists(Arrays.asList('D', 'E', 'B', 'C', 'D')));
         assertTrue(calc.routeExists(Arrays.asList('C', 'D', 'C')));
 
@@ -130,11 +106,6 @@ public class DistanceCalculatorTest {
 
     @Test
     public void testItCanCalculateDistanceOfCircularRoute() {
-        Map<Character, HashMap<Character, Integer>> exampleGraph
-            = ExampleGraph.createGraph();
-
-        DistanceCalculator calc = new DistanceCalculator(exampleGraph);
-
         List<Character> routeOne = Arrays.asList('C', 'D', 'C');
         List<Character> routeTwo = Arrays.asList('C', 'D', 'C', 'D');
         List<Character> routeThree = Arrays.asList('B', 'C', 'E', 'B');
@@ -148,11 +119,6 @@ public class DistanceCalculatorTest {
 
     @Test
     public void testItCanDetectNoRoute() {
-        Map<Character, HashMap<Character, Integer>> exampleGraph
-            = ExampleGraph.createGraph();
-
-        DistanceCalculator calc = new DistanceCalculator(exampleGraph);
-
         List<Character> validRoute = Arrays.asList('A', 'B', 'C', 'E');
         List<Character> invalidRoute = Arrays.asList('A', 'B', 'C', 'A');
 
