@@ -81,43 +81,12 @@ public class GraphBuilderTest {
 
     @Test
     public void buildWeightedGraphWithMultipleNodes() {
-        Map<Character, HashMap<Character, Integer>> expected
-            = new HashMap<Character, HashMap<Character, Integer>>() {
-                {
-                    put('A', new HashMap<Character, Integer>() {
-                        {
-                            put('B', 5);
-                            put('D', 5);
-                            put('E', 7);
-                        }
-                    });
-                    put('B', new HashMap<Character, Integer>() {
-                        {
-                            put('C', 4);
-                        }
-                    });
-                    put('C', new HashMap<Character, Integer>() {
-                        {
-                            put('D', 8);
-                            put('E', 2);
-                        }
-                    });
-                    put('D', new HashMap<Character, Integer>() {
-                        {
-                            put('C', 8);
-                            put('E', 6);
-                        }
-                    });
-                    put('E', new HashMap<Character, Integer>() {
-                        {
-                            put('B', 3);
-                        }
-                    });
-                }
-            };
+        Map<Character, HashMap<Character, Integer>> exampleGraph;
+        exampleGraph = ExampleGraph.createGraph();
+
         GraphBuilder builder
             = new GraphBuilder("AB5, BC4, CD8, DC8, DE6, AD5, CE2, EB3, AE7");
 
-        assertEquals(expected, builder.buildWeighted());
+        assertEquals(exampleGraph, builder.buildWeighted());
     }
 }

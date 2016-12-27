@@ -4,26 +4,21 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class ShortestPathFinderTest {
-    @Test
-    public void testPathFinderHasGraph() {
-        Map<Character, HashMap<Character, Integer>> exampleGraph
-            = ExampleGraph.createGraph();
+    private Map<Character, HashMap<Character, Integer>> exampleGraph;
+    private ShortestPathFinder finder;
 
-        ShortestPathFinder finder = new ShortestPathFinder(exampleGraph);
-
-        assertEquals(exampleGraph, finder.getGraph());
+    @Before
+    public void createGraph() {
+        exampleGraph = ExampleGraph.createGraph();
+        finder = new ShortestPathFinder(exampleGraph);
     }
 
     @Test
     public void testPathFinderCanGetAdjacentNodes() {
-        Map<Character, HashMap<Character, Integer>> exampleGraph
-            = ExampleGraph.createGraph();
-
-        ShortestPathFinder finder = new ShortestPathFinder(exampleGraph);
-
         assertEquals(Arrays.asList('B', 'D', 'E'), finder.getAdjacentNodes('A'));
         assertEquals(Arrays.asList('C'), finder.getAdjacentNodes('B'));
         assertEquals(Arrays.asList('C', 'E'), finder.getAdjacentNodes('D'));
@@ -31,11 +26,6 @@ public class ShortestPathFinderTest {
 
     @Test
     public void testGeneratingCosts() {
-        Map<Character, HashMap<Character, Integer>> exampleGraph
-            = ExampleGraph.createGraph();
-
-        ShortestPathFinder finder = new ShortestPathFinder(exampleGraph);
-
         Integer infinity = Integer.MAX_VALUE;
 
         HashMap<Character, Integer> expectedOne
@@ -66,11 +56,6 @@ public class ShortestPathFinderTest {
 
     @Test
     public void testGeneratingPredecessors() {
-        Map<Character, HashMap<Character, Integer>> exampleGraph
-            = ExampleGraph.createGraph();
-
-        ShortestPathFinder finder = new ShortestPathFinder(exampleGraph);
-
         HashMap<Character, Character> expectedOne
             = new HashMap<Character, Character>() {
                 {
@@ -97,19 +82,11 @@ public class ShortestPathFinderTest {
 
     @Test
     public void testItCanFindTheLowestCostNode() {
-        Map<Character, HashMap<Character, Integer>> exampleGraph = ExampleGraph.createGraph();
-
-        ShortestPathFinder finder = new ShortestPathFinder(exampleGraph);
-
         assertEquals((Character)'B', finder.getLowestCostNode('A', 'B', null, null));
     }
 
     @Test
     public void testItCanFindTheShortestPath() {
-        Map<Character, HashMap<Character, Integer>> exampleGraph = ExampleGraph.createGraph();
-
-        ShortestPathFinder finder = new ShortestPathFinder(exampleGraph);
-
         assertEquals((Integer)7, finder.findShortestPathDistance('A', 'E'));
         assertEquals((Integer)9, finder.findShortestPathDistance('A', 'C'));
         assertEquals((Integer)9, finder.findShortestPathDistance('B', 'B'));

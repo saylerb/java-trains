@@ -21,10 +21,8 @@ public class PathFinder {
         return new ArrayList<Character>(graph.get(node).keySet());
     }
 
-    public ArrayList<List<Character>> findPathsWithMaxStops(
-            Character start,
-            Character end,
-            Integer max) {
+    public ArrayList<List<Character>> findPathsWithMaxStops(char start, char end, int max) {
+        setAttributes(start, end, max);
 
         ArrayList<List<Character>> foundPaths = new ArrayList<>();
         ArrayList<Character> visitedNodes = new ArrayList<Character>() {
@@ -32,18 +30,11 @@ public class PathFinder {
                 add(start);
             }
         };
-
-        this.start = start;
-        this.end = end;
-        this.max = max;
-
         return depthFirstSearchMaxStops(visitedNodes, foundPaths, start);
     }
 
-    public ArrayList<List<Character>> findPathsWithExactStops(
-            Character start,
-            Character end,
-            Integer max) {
+    public ArrayList<List<Character>> findPathsWithExactStops(char start, char end, int max) {
+        setAttributes(start, end, max);
 
         ArrayList<List<Character>> foundPaths = new ArrayList<>();
 
@@ -52,18 +43,12 @@ public class PathFinder {
                 add(start);
             }
         };
-
-        this.start = start;
-        this.end = end;
-        this.max = max;
 
         return depthFirstSearchExactStops(visitedNodes, foundPaths, start);
     }
 
-    public ArrayList<List<Character>> findPathsUpToMaxDistance(
-            Character start,
-            Character end,
-            Integer max) {
+    public ArrayList<List<Character>> findPathsUpToMaxDistance(char start, char end, int max) {
+        setAttributes(start, end, max);
 
         ArrayList<List<Character>> foundPaths = new ArrayList<>();
 
@@ -73,11 +58,13 @@ public class PathFinder {
             }
         };
 
+        return depthFirstSearchUpToDistance(visitedNodes, foundPaths, start);
+    }
+
+    private void setAttributes(char start, char end, int max) {
         this.start = start;
         this.end = end;
         this.max = max;
-
-        return depthFirstSearchUpToDistance(visitedNodes, foundPaths, start);
     }
 
     private ArrayList<List<Character>> depthFirstSearchExactStops(
@@ -99,10 +86,7 @@ public class PathFinder {
                         add(adjacentNode);
                     }
                 };
-                depthFirstSearchExactStops(
-                        newVisitedNodes,
-                        foundPaths,
-                        adjacentNode);
+                depthFirstSearchExactStops(newVisitedNodes, foundPaths, adjacentNode);
             }
         }
         return foundPaths;
@@ -127,10 +111,7 @@ public class PathFinder {
                         add(adjacentNode);
                     }
                 };
-                depthFirstSearchMaxStops(
-                        newVisitedNodes,
-                        foundPaths,
-                        adjacentNode);
+                depthFirstSearchMaxStops(newVisitedNodes, foundPaths, adjacentNode);
             }
         }
         return foundPaths;
@@ -141,8 +122,7 @@ public class PathFinder {
             ArrayList<List<Character>> foundPaths,
             Character currentNode) {
 
-        String currentDistance
-            = new DistanceCalculator(graph).calculateDistance(visitedNodes);
+        String currentDistance = new DistanceCalculator(graph).calculateDistance(visitedNodes);
 
         if (Integer.parseInt(currentDistance) >= max) {
             return foundPaths;
@@ -159,10 +139,7 @@ public class PathFinder {
                     add(adjacentNode);
                 }
             };
-            depthFirstSearchUpToDistance(
-                    newVisitedNodes,
-                    foundPaths,
-                    adjacentNode);
+            depthFirstSearchUpToDistance(newVisitedNodes, foundPaths, adjacentNode);
         }
         return foundPaths;
     }

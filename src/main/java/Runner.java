@@ -11,18 +11,13 @@ import java.util.stream.IntStream;
 
 public class Runner {
     public static void main(String[] args) {
-
         String input = FileReader.readToString("input.txt");
+
         GraphBuilder builder = new GraphBuilder(input);
-
-        Map<Character, HashMap<Character, Integer>> graph
-            = builder.buildWeighted();
-
+        Map<Character, HashMap<Character, Integer>> graph = builder.buildWeighted();
         DistanceCalculator calc = new DistanceCalculator(graph);
-
         PathFinder finder = new PathFinder(graph);
         ShortestPathFinder shorty = new ShortestPathFinder(graph);
-
         List<String> output = new ArrayList<String>();
 
         System.out.println("Writing to output file...");
