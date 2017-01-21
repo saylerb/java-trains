@@ -12,6 +12,15 @@ public class Graph {
     this.graph = graph;
   }
 
+  public boolean equals(Object otherGraph) {
+    Graph g = (Graph) otherGraph;
+    return getGraph().equals(g.getGraph());
+  }
+
+  public int hashCode() {
+    return graph.hashCode();
+  }
+
   public Map<Character, HashMap<Character, Integer>> getGraph() {
     return this.graph;
   }

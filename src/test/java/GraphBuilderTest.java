@@ -1,4 +1,5 @@
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -32,19 +33,19 @@ public class GraphBuilderTest {
 
         Graph actualGraph = builder.buildWeighted();
 
-        assertEquals(expectedGraph.getGraph(), actualGraph.getGraph());
+        assertTrue(expectedGraph.equals(actualGraph));
     }
 
     @Test
     public void buildWeightedGraphWithMultipleNodes() {
-        Graph exampleGraph;
-        exampleGraph = ExampleGraph.createGraph();
+        Graph expectedGraph;
+        expectedGraph = ExampleGraph.createGraph();
 
         GraphBuilder builder
             = new GraphBuilder("AB5, BC4, CD8, DC8, DE6, AD5, CE2, EB3, AE7");
 
         Graph actualGraph = builder.buildWeighted();
 
-        assertEquals(exampleGraph.getGraph(), actualGraph.getGraph());
+        assertTrue(expectedGraph.equals(actualGraph));
     }
 }
