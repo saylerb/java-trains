@@ -5,13 +5,13 @@ import java.util.List;
 import java.util.Map;
 
 public class DistanceCalculator {
-    private Map<Character, HashMap<Character, Integer>> graph;
+    private Graph graph;
 
-    public DistanceCalculator(Map<Character, HashMap<Character, Integer>> graph) {
+    public DistanceCalculator(Graph graph) {
         this.graph = graph;
     }
 
-    public Map<Character, HashMap<Character, Integer>> getGraph() {
+    public Graph getGraph() {
         return graph;
     }
 
@@ -24,7 +24,7 @@ public class DistanceCalculator {
                 char origin = pair.get(0);
                 char destination = pair.get(1);
 
-                totalDistance += graph.get(origin).get(destination);
+                totalDistance += graph.getDistance(origin, destination);
             }
             return String.valueOf(totalDistance);
         } else {
@@ -49,7 +49,7 @@ public class DistanceCalculator {
         char start = edge.get(0);
         char end = edge.get(1);
 
-        HashMap<Character, Integer> allEdges = graph.get(start);
+        HashMap<Character, Integer> allEdges = graph.getNode(start);
 
         if (allEdges == null) {
             return false;

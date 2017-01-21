@@ -4,28 +4,28 @@ import java.util.List;
 import java.util.Map;
 
 public class ShortestPathFinder {
-    private Map<Character, HashMap<Character, Integer>> graph;
+    private Graph graph;
 
-    public ShortestPathFinder(Map<Character, HashMap<Character, Integer>> graph) {
+    public ShortestPathFinder(Graph graph) {
         this.graph = graph;
     }
 
-    public Map<Character, HashMap<Character, Integer>> getGraph() {
+    public Graph getGraph() {
         return graph;
     }
 
     public List<Character> getAdjacentNodes(Character node) {
-        return new ArrayList<Character>(graph.get(node).keySet());
+        return new ArrayList<Character>(graph.getNode(node).keySet());
     }
 
     public HashMap<Character, Integer> generateCosts(char start, char end) {
-        List<Character> nodes = new ArrayList<Character>(graph.keySet());
+        List<Character> nodes = new ArrayList<Character>(graph.getNodes());
 
         HashMap<Character, Integer> costs = new HashMap<Character, Integer>();
 
         for (char node : nodes) {
             if (getAdjacentNodes(start).contains(node)) {
-                costs.put(node, graph.get(start).get(node));
+                costs.put(node, graph.getDistance(start, node));
             } else {
                 costs.put(node, Integer.MAX_VALUE);
             }
@@ -34,7 +34,7 @@ public class ShortestPathFinder {
     }
 
     public HashMap<Character, Character> generatePredecessors(char start,char end) {
-        List<Character> nodes = new ArrayList<Character>(graph.keySet());
+        List<Character> nodes = new ArrayList<Character>(graph.getNodes());
 
         HashMap<Character, Character> parents = new HashMap<>();
 
@@ -86,7 +86,7 @@ public class ShortestPathFinder {
 
         while (currentNode != null) {
             Integer cost = costs.get(currentNode);
-            HashMap<Character, Integer> adjacentNodes = graph.get(currentNode);
+            HashMap<Character, Integer> adjacentNodes = graph.getNode(currentNode);
 
             for (char adjacentNode : adjacentNodes.keySet()) {
                 Integer newCost = cost + adjacentNodes.get(adjacentNode);

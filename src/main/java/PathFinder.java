@@ -4,77 +4,63 @@ import java.util.List;
 import java.util.Map;
 
 public class PathFinder {
-    private Map<Character, HashMap<Character, Integer>> graph;
-    private Character start;
-    private Character end;
-    private Integer max;
+    private Graph graph;
 
-    public PathFinder(Map<Character, HashMap<Character, Integer>> graph) {
+    public PathFinder(Graph graph) {
         this.graph = graph;
     }
 
-    public Map<Character, HashMap<Character, Integer>> getGraph() {
+    public Graph getGraph() {
         return graph;
     }
 
     public List<Character> findAdjacentNodes(Character node) {
-        return new ArrayList<Character>(graph.get(node).keySet());
+        return new ArrayList<Character>(graph.getNode(node).keySet());
     }
 
-    public ArrayList<List<Character>> findPathsWithMaxStops(char start, char end, int max) {
-        setAttributes(start, end, max);
-
-        ArrayList<List<Character>> foundPaths = new ArrayList<>();
-        ArrayList<Character> visitedNodes = new ArrayList<Character>() {
-            {
-                add(start);
-            }
+    private List<Character> buildVisitedNodes(Character start) {
+        return new ArrayList<Character>() {
+          {
+              add(start);
+          }
         };
-        return depthFirstSearchMaxStops(visitedNodes, foundPaths, start);
     }
 
-    public ArrayList<List<Character>> findPathsWithExactStops(char start, char end, int max) {
-        setAttributes(start, end, max);
+    public List<List<Character>> findPathsWithMaxStops(char start, char end, int max) {
+        Route route = new Route(start, end, max);
 
-        ArrayList<List<Character>> foundPaths = new ArrayList<>();
+        List<List<Character>> foundPaths = new ArrayList<>();
+        List<Character> visitedNodes = buildVisitedNodes(start);
 
-        ArrayList<Character> visitedNodes = new ArrayList<Character>() {
-            {
-                add(start);
-            }
-        };
-
-        return depthFirstSearchExactStops(visitedNodes, foundPaths, start);
+        return depthFirstSearchMaxStops(visitedNodes, foundPaths, start, route);
     }
 
-    public ArrayList<List<Character>> findPathsUpToMaxDistance(char start, char end, int max) {
-        setAttributes(start, end, max);
+    public List<List<Character>> findPathsWithExactStops(char start, char end, int max) {
+        Route route = new Route(start, end, max);
+        List<List<Character>> foundPaths = new ArrayList<>();
+        List<Character> visitedNodes = buildVisitedNodes(start);
 
-        ArrayList<List<Character>> foundPaths = new ArrayList<>();
-
-        ArrayList<Character> visitedNodes = new ArrayList<Character>() {
-            {
-                add(start);
-            }
-        };
-
-        return depthFirstSearchUpToDistance(visitedNodes, foundPaths, start);
+        return depthFirstSearchExactStops(visitedNodes, foundPaths, start, route);
     }
 
-    private void setAttributes(char start, char end, int max) {
-        this.start = start;
-        this.end = end;
-        this.max = max;
+    public List<List<Character>> findPathsUpToMaxDistance(char start, char end, int max) {
+        Route route = new Route(start, end, max);
+
+        List<List<Character>> foundPaths = new ArrayList<>();
+        List<Character> visitedNodes = buildVisitedNodes(start);
+
+        return depthFirstSearchUpToDistance(visitedNodes, foundPaths, start, route);
     }
 
-    private ArrayList<List<Character>> depthFirstSearchExactStops(
+    private List<List<Character>> depthFirstSearchExactStops(
             List<Character> visitedNodes,
-            ArrayList<List<Character>> foundPaths,
-            Character currentNode) {
+            List<List<Character>> foundPaths,
+            Character currentNode,
+            Route route) {
 
-        if (visitedNodes.size() > max + 1) {
+        if (visitedNodes.size() > route.getLimit() + 1) {
             return foundPaths;
-        } else if (currentNode == end && visitedNodes.size() == max + 1) {
+        } else if (currentNode == route.getEnd() && visitedNodes.size() == route.getLimit() + 1) {
             foundPaths.add(visitedNodes);
         } else {
             List<Character> adjacentNodes = findAdjacentNodes(currentNode);
@@ -86,20 +72,21 @@ public class PathFinder {
                         add(adjacentNode);
                     }
                 };
-                depthFirstSearchExactStops(newVisitedNodes, foundPaths, adjacentNode);
+                depthFirstSearchExactStops(newVisitedNodes, foundPaths, adjacentNode, route);
             }
         }
         return foundPaths;
     }
 
-    private ArrayList<List<Character>> depthFirstSearchMaxStops(
+    private List<List<Character>> depthFirstSearchMaxStops(
             List<Character> visitedNodes,
-            ArrayList<List<Character>> foundPaths,
-            Character currentNode) {
+            List<List<Character>> foundPaths,
+            Character currentNode,
+            Route route) {
 
-        if (visitedNodes.size() > max + 1) {
+        if (visitedNodes.size() > route.getLimit() + 1) {
             return foundPaths;
-        } else if (currentNode == end && visitedNodes.size() > 1) {
+        } else if (currentNode == route.getEnd() && visitedNodes.size() > 1) {
             foundPaths.add(visitedNodes);
         } else {
             List<Character> adjacentNodes = findAdjacentNodes(currentNode);
@@ -111,22 +98,23 @@ public class PathFinder {
                         add(adjacentNode);
                     }
                 };
-                depthFirstSearchMaxStops(newVisitedNodes, foundPaths, adjacentNode);
+                depthFirstSearchMaxStops(newVisitedNodes, foundPaths, adjacentNode, route);
             }
         }
         return foundPaths;
     }
 
-    private ArrayList<List<Character>> depthFirstSearchUpToDistance(
+    private List<List<Character>> depthFirstSearchUpToDistance(
             List<Character> visitedNodes,
-            ArrayList<List<Character>> foundPaths,
-            Character currentNode) {
+            List<List<Character>> foundPaths,
+            Character currentNode,
+            Route route) {
 
         String currentDistance = new DistanceCalculator(graph).calculateDistance(visitedNodes);
 
-        if (Integer.parseInt(currentDistance) >= max) {
+        if (Integer.parseInt(currentDistance) >= route.getLimit()) {
             return foundPaths;
-        } else if (currentNode == end && visitedNodes.size() > 1) {
+        } else if (currentNode == route.getEnd() && visitedNodes.size() > 1) {
             foundPaths.add(visitedNodes);
         }
 
@@ -139,7 +127,7 @@ public class PathFinder {
                     add(adjacentNode);
                 }
             };
-            depthFirstSearchUpToDistance(newVisitedNodes, foundPaths, adjacentNode);
+            depthFirstSearchUpToDistance(newVisitedNodes, foundPaths, adjacentNode, route);
         }
         return foundPaths;
     }
