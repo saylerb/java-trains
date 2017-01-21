@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class ShortestPathFinderTest {
-    private Map<Character, HashMap<Character, Integer>> exampleGraph;
+    private Graph exampleGraph;
     private ShortestPathFinder finder;
 
     @Before
@@ -95,4 +95,3 @@ public class ShortestPathFinderTest {
     }
 
 }
-

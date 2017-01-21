@@ -14,7 +14,7 @@ public class Runner {
         String input = FileReader.readToString("input.txt");
 
         GraphBuilder builder = new GraphBuilder(input);
-        Map<Character, HashMap<Character, Integer>> graph = builder.buildWeighted();
+        Graph graph = builder.buildWeighted();
         DistanceCalculator calc = new DistanceCalculator(graph);
         PathFinder finder = new PathFinder(graph);
         ShortestPathFinder shorty = new ShortestPathFinder(graph);
@@ -46,4 +46,3 @@ public class Runner {
         System.out.println("Output written!");
     }
 }
-

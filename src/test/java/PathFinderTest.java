@@ -11,7 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class PathFinderTest {
-    private Map<Character, HashMap<Character, Integer>> exampleGraph;
+    private Graph exampleGraph;
     private PathFinder finder;
 
     @Before
@@ -29,7 +29,7 @@ public class PathFinderTest {
 
     @Test
     public void testFindingPathsFromCtoCWithMaxStops() {
-        ArrayList<List<Character>> expected
+        List<List<Character>> expected
             = new ArrayList<List<Character>>() {
                 {
                     add(Arrays.asList('C', 'D', 'C'));
@@ -37,7 +37,7 @@ public class PathFinderTest {
                 }
             };
 
-        ArrayList<List<Character>> result
+        List<List<Character>> result
             = finder.findPathsWithMaxStops('C', 'C', 3);
 
         assertEquals(expected, result);
@@ -46,7 +46,7 @@ public class PathFinderTest {
 
     @Test
     public void testFindingPathsFromAtoCWithExactStops() {
-        ArrayList<List<Character>> expected
+        List<List<Character>> expected
             = new ArrayList<List<Character>>() {
                 {
                     add(Arrays.asList('A', 'B', 'C', 'D', 'C'));
@@ -55,7 +55,7 @@ public class PathFinderTest {
                 }
             };
 
-        ArrayList<List<Character>> result
+        List<List<Character>> result
             = finder.findPathsWithExactStops('A', 'C', 4);
 
         assertEquals(expected, result);
@@ -64,7 +64,7 @@ public class PathFinderTest {
 
     @Test
     public void testFindingPathsWithinACertainDistance() {
-        ArrayList<List<Character>> expectedPaths
+        List<List<Character>> expectedPaths
             = new ArrayList<List<Character>>() {
                 {
                     add(Arrays.asList('C', 'D', 'C'));
@@ -77,7 +77,7 @@ public class PathFinderTest {
                 }
             };
 
-        ArrayList<List<Character>> result
+        List<List<Character>> result
             = finder.findPathsUpToMaxDistance('C', 'C', 30);
 
         for (List<Character> path : expectedPaths) {

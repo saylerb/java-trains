@@ -14,34 +14,7 @@ public class GraphBuilder {
         return input;
     }
 
-    public Map<Character, List<Character>> buildUnweighted() {
-        String[] pairs = input.split(", ");
-
-        Map<Character, List<Character>> result
-            = new HashMap<Character, List<Character>>();
-
-        for (String pair : pairs) {
-            char[] charPair = pair.toCharArray();
-
-            char origin = charPair[0];
-            char destination = charPair[1];
-
-            List<Character> adjacentNodes = result.get(origin);
-
-            if (adjacentNodes == null) {
-                adjacentNodes = new ArrayList<Character>();
-                adjacentNodes.add(destination);
-
-                result.put(origin, adjacentNodes);
-
-            } else {
-                result.get(origin).add(destination);
-            }
-        }
-        return result;
-    }
-
-    public Map<Character, HashMap<Character, Integer>> buildWeighted() {
+    public Graph buildWeighted() {
         String[] pairs = input.split(", ");
 
         Map<Character, HashMap<Character, Integer>> result
@@ -66,6 +39,6 @@ public class GraphBuilder {
                 result.get(origin).put(destination, weight);
             }
         }
-        return result;
+        return new Graph(result);
     }
 }

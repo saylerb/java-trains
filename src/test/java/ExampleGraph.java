@@ -3,7 +3,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ExampleGraph {
-    public static Map<Character, HashMap<Character, Integer>> createGraph() {
+    public static Graph createGraph() {
         Map<Character, HashMap<Character, Integer>> thing
             = new HashMap<Character, HashMap<Character, Integer>>() {
                 {
@@ -38,6 +38,6 @@ public class ExampleGraph {
                     });
                 }
             };
-        return Collections.unmodifiableMap(thing);
+        return new Graph(thing);
     }
 }

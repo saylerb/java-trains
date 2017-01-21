@@ -13,7 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class DistanceCalculatorTest {
-    private Map<Character, HashMap<Character, Integer>> exampleGraph;
+    private Graph exampleGraph;
     private DistanceCalculator calc;
 
     @Before
