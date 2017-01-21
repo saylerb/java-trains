@@ -20,9 +20,9 @@ public class PathFinder {
 
     private List<Character> buildVisitedNodes(Character start) {
         return new ArrayList<Character>() {
-          {
-              add(start);
-          }
+            {
+                add(start);
+            }
         };
     }
 
