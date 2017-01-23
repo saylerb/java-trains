@@ -59,19 +59,24 @@ calculations on the example graph:
 
 The main classes are below:
 ```
-src/main/java
-├── DistanceCalculator.java
-├── FileReader.java
-├── FileWriter.java
-├── GraphBuilder.java
-├── PathFinder.java
-├── Runner.java
-└── ShortestPathFinder.java
+src/main
+└── java
+    ├── DistanceCalculator.java
+    ├── FileReader.java
+    ├── FileWriter.java
+    ├── Graph.java
+    ├── GraphBuilder.java
+    ├── PathFinder.java
+    ├── Route.java
+    ├── Runner.java
+    └── ShortestPathFinder.java
 ```
 * DistanceCalculator - calculates the distance between two nodes.
 * FileReader - reads the input from a text file into a string.
 * FileWriter - takes a list of strings and writes them to an output file line-by-line.
+* Graph - encapsulates the graph data structure and provides methods to interact with it
 * GraphBuilder - takes a string of graph edges and weights and builds a HashMap representing the graph.
 * PathFinder - uses depth-first search to calculate paths with a maximum number of stops, an exact number of stops, or up to a certain distance.
+* Route - contains the parameters used in the PathFinder class' recursive search methods
 * Runner - runs the program with the calculations listed above. Reads from the`input.txt` file, instantiates the correct objects, and runs 10 calculation methods, writing the output to `output.txt`.
 * ShortestPathFinder - uses a modified breath-first search to find the shortest path between two nodes.
