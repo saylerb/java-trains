@@ -3,3 +3,7 @@
 output.txt
 
 .idea
+gradlew*
+gradle
+java-trains.iml
+out
