@@ -2,7 +2,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class DistanceCalculator {
     private Graph graph;
@@ -20,7 +19,7 @@ public class DistanceCalculator {
         ArrayList<List<Character>> pairs = getNodePairs(route);
 
         if (routeExists(route)) {
-            for (List<Character> pair: pairs) {
+            for (List<Character> pair : pairs) {
                 char origin = pair.get(0);
                 char destination = pair.get(1);
 
@@ -35,7 +34,7 @@ public class DistanceCalculator {
     public ArrayList<List<Character>> getNodePairs(List<Character> route) {
         Integer totalNodes = route.size();
 
-        ArrayList<List<Character>> result = new ArrayList<List<Character>>();
+        ArrayList<List<Character>> result = new ArrayList<>();
 
         for (int index = 0; index < totalNodes; index++) {
             if (index != totalNodes - 1) {
@@ -53,16 +52,14 @@ public class DistanceCalculator {
 
         if (allEdges == null) {
             return false;
-        } else if (allEdges.get(end) == null) {
-            return false;
         } else {
-            return true;
+            return allEdges.get(end) != null;
         }
     }
 
     public boolean routeExists(List<Character> route) {
         return getNodePairs(route)
             .stream()
-            .allMatch(edge -> edgeExists(edge));
+            .allMatch(this::edgeExists);
     }
 }

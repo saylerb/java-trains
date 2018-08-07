@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ShortestPathFinder {
     private Graph graph;
@@ -15,13 +14,13 @@ public class ShortestPathFinder {
     }
 
     public List<Character> getAdjacentNodes(Character node) {
-        return new ArrayList<Character>(graph.getNode(node).keySet());
+        return new ArrayList<>(graph.getNode(node).keySet());
     }
 
-    public HashMap<Character, Integer> generateCosts(char start, char end) {
-        List<Character> nodes = new ArrayList<Character>(graph.getNodes());
+    public HashMap<Character, Integer> generateCosts(char start) {
+        List<Character> nodes = new ArrayList<>(graph.getNodes());
 
-        HashMap<Character, Integer> costs = new HashMap<Character, Integer>();
+        HashMap<Character, Integer> costs = new HashMap<>();
 
         for (char node : nodes) {
             if (getAdjacentNodes(start).contains(node)) {
@@ -33,8 +32,8 @@ public class ShortestPathFinder {
         return costs;
     }
 
-    public HashMap<Character, Character> generatePredecessors(char start,char end) {
-        List<Character> nodes = new ArrayList<Character>(graph.getNodes());
+    public HashMap<Character, Character> generatePredecessors(char start) {
+        List<Character> nodes = new ArrayList<>(graph.getNodes());
 
         HashMap<Character, Character> parents = new HashMap<>();
 
@@ -49,20 +48,19 @@ public class ShortestPathFinder {
     }
 
     public Character getLowestCostNode(
-            char start,
-            char end,
-            HashMap<Character, Integer> costs,
-            List<Character> processed) {
+        char start,
+        HashMap<Character, Integer> costs,
+        List<Character> processed) {
 
         Integer lowestCost = Integer.MAX_VALUE;
         Character lowestCostNode = null;
 
         if (costs == null) {
-            costs = generateCosts(start, end);
+            costs = generateCosts(start);
         }
 
         if (processed == null) {
-            processed = new ArrayList<Character>();
+            processed = new ArrayList<>();
         }
 
         for (char node : costs.keySet()) {
@@ -78,11 +76,11 @@ public class ShortestPathFinder {
     }
 
     public Integer findShortestPathDistance(char start, char end) {
-        HashMap<Character, Integer> costs = generateCosts(start, end);
-        HashMap<Character, Character> predecessors = generatePredecessors(start, end);
+        HashMap<Character, Integer> costs = generateCosts(start);
+        HashMap<Character, Character> predecessors = generatePredecessors(start);
 
-        Character currentNode = getLowestCostNode(start, end, null, null);
-        List<Character> visited = new ArrayList<Character>();
+        Character currentNode = getLowestCostNode(start, null, null);
+        List<Character> visited = new ArrayList<>();
 
         while (currentNode != null) {
             Integer cost = costs.get(currentNode);
@@ -97,7 +95,7 @@ public class ShortestPathFinder {
                 }
             }
             visited.add(currentNode);
-            currentNode = getLowestCostNode(start, end, costs, visited);
+            currentNode = getLowestCostNode(start, costs, visited);
         }
         return costs.get(end);
     }

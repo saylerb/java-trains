@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 
 public class FileReader {
     public static String readToString(String path) {
-        String result = new String();
+        String result = "";
 
         try (Stream<String> stream = Files.lines(Paths.get(path))) {
             result = stream
@@ -22,7 +22,7 @@ public class FileReader {
     }
 
     public static List<String> readToArray(String path) {
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
 
         try (Stream<String> stream = Files.lines(Paths.get(path))) {
             result = stream

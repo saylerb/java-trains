@@ -1,6 +1,4 @@
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class GraphBuilder {
@@ -18,7 +16,7 @@ public class GraphBuilder {
         String[] pairs = input.split(", ");
 
         Map<Character, HashMap<Character, Integer>> result
-            = new HashMap<Character, HashMap<Character, Integer>>();
+            = new HashMap<>();
 
         for (String pair : pairs) {
             char[] charPair = pair.toCharArray();
@@ -30,7 +28,7 @@ public class GraphBuilder {
             HashMap<Character, Integer> adjacentNodes = result.get(origin);
 
             if (adjacentNodes == null) {
-                adjacentNodes = new HashMap<Character, Integer>();
+                adjacentNodes = new HashMap<>();
                 adjacentNodes.put(destination, weight);
 
                 result.put(origin, adjacentNodes);

@@ -1,7 +1,5 @@
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class PathFinder {
     private Graph graph;
@@ -15,7 +13,7 @@ public class PathFinder {
     }
 
     public List<Character> findAdjacentNodes(Character node) {
-        return new ArrayList<Character>(graph.getNode(node).keySet());
+        return new ArrayList<>(graph.getNode(node).keySet());
     }
 
     private List<Character> buildVisitedNodes(Character start) {
@@ -53,10 +51,10 @@ public class PathFinder {
     }
 
     private List<List<Character>> depthFirstSearchExactStops(
-            List<Character> visitedNodes,
-            List<List<Character>> foundPaths,
-            Character currentNode,
-            Route route) {
+        List<Character> visitedNodes,
+        List<List<Character>> foundPaths,
+        Character currentNode,
+        Route route) {
 
         if (visitedNodes.size() > route.getLimit() + 1) {
             return foundPaths;
@@ -79,10 +77,10 @@ public class PathFinder {
     }
 
     private List<List<Character>> depthFirstSearchMaxStops(
-            List<Character> visitedNodes,
-            List<List<Character>> foundPaths,
-            Character currentNode,
-            Route route) {
+        List<Character> visitedNodes,
+        List<List<Character>> foundPaths,
+        Character currentNode,
+        Route route) {
 
         if (visitedNodes.size() > route.getLimit() + 1) {
             return foundPaths;
@@ -105,10 +103,10 @@ public class PathFinder {
     }
 
     private List<List<Character>> depthFirstSearchUpToDistance(
-            List<Character> visitedNodes,
-            List<List<Character>> foundPaths,
-            Character currentNode,
-            Route route) {
+        List<Character> visitedNodes,
+        List<List<Character>> foundPaths,
+        Character currentNode,
+        Route route) {
 
         String currentDistance = new DistanceCalculator(graph).calculateDistance(visitedNodes);
 

@@ -1,11 +1,9 @@
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 public class Graph {
     private Map<Character, HashMap<Character, Integer>> graph;
-    private String name;
 
     public Graph(Map<Character, HashMap<Character, Integer>> graph) {
         this.graph = graph;

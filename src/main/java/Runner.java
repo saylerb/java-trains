@@ -2,10 +2,7 @@ import static java.lang.String.valueOf;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -18,7 +15,7 @@ public class Runner {
         DistanceCalculator calc = new DistanceCalculator(graph);
         PathFinder finder = new PathFinder(graph);
         ShortestPathFinder shorty = new ShortestPathFinder(graph);
-        List<String> output = new ArrayList<String>();
+        List<String> output = new ArrayList<>();
 
         System.out.println("Writing to output file...");
 
@@ -40,7 +37,7 @@ public class Runner {
             .mapToObj(index -> "Output #" + (index + 1) + ": " + output.get(index))
             .collect(Collectors.toList());
 
-        formattedOutput.forEach(line -> System.out.println(line));
+        formattedOutput.forEach(System.out::println);
 
         FileWriter.write(formattedOutput, "output.txt");
         System.out.println("Output written!");

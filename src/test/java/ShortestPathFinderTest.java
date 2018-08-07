@@ -2,7 +2,6 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -50,8 +49,8 @@ public class ShortestPathFinderTest {
                 }
             };
 
-        assertEquals(expectedOne, finder.generateCosts('A', 'C'));
-        assertEquals(expectedTwo, finder.generateCosts('C', 'B'));
+        assertEquals(expectedOne, finder.generateCosts('A'));
+        assertEquals(expectedTwo, finder.generateCosts('C'));
     }
 
     @Test
@@ -76,13 +75,13 @@ public class ShortestPathFinderTest {
                 }
             };
 
-        assertEquals(expectedOne, finder.generatePredecessors('A', 'B'));
-        assertEquals(expectedTwo, finder.generatePredecessors('C', 'B'));
+        assertEquals(expectedOne, finder.generatePredecessors('A'));
+        assertEquals(expectedTwo, finder.generatePredecessors('C'));
     }
 
     @Test
     public void testItCanFindTheLowestCostNode() {
-        assertEquals((Character)'B', finder.getLowestCostNode('A', 'B', null, null));
+        assertEquals((Character)'B', finder.getLowestCostNode('A', null, null));
     }
 
     @Test
